@@ -1,6 +1,5 @@
 import os
 import re
-from bs4 import BeautifulSoup
 import requests
 
 
@@ -21,11 +20,13 @@ class SPOJCrawler(object):
                 'password': password}
 
         self.session.post(self.base_url, data)
+        print(f'account {username} logged to VOJ')
 
     def get_solved_list(self, username):
         solved_list_raw = self.session.get(
             self.base_url + 'status/' + username + '/signedlist/').text
-        solved_list = solved_list_raw[solved_list_raw.find('--\\') + 4: solved_list_raw.find('\\--')]
+        solved_list = solved_list_raw[solved_list_raw.find(
+            '--\\') + 4: solved_list_raw.find('\\--')]
         solved_list = solved_list[solved_list.find('\n') + 1:]
         solved_list = solved_list[solved_list.find('\n') + 1:]
         return solved_list
@@ -46,3 +47,4 @@ class SPOJCrawler(object):
         code_url = self.code_url.format(id=submission_id)
         request = self.session.get(code_url)
         self.store_code(output_dir, extension, request.text)
+        return request.text, extension
