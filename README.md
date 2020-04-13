@@ -5,4 +5,5 @@ Submit all accepted code of an account in [VOJ](http://vn.spoj.com/) to [VNOI co
 ## How to use
 - Clone this repository 
 - Base on file `.env-example`, create file `.env` and fill it with your VOJ account, codeforces account
-- Then use `python main.py` to run the bot. Remember to edit data in `.env`. If you is in ubuntu, please use `python3` instead of `python`.
+- Run `pip3 install -r requirements.txt` to install needed lib.
+- Then use `python3 main.py` to run the bot. Remember to edit data in `.env`. 

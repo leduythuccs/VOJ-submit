@@ -52,6 +52,7 @@ def main():
     # |   ID    |        DATE         |  PROBLEM  |  RESULT   | TIME  |  MEM   | LNG |
     csv_reader = csv.reader(StringIO(solved_list), delimiter='|')
     cnt_submitted = 0
+    done = set()
     # start crawling
     for row in csv_reader:
         row = list(map(str.strip, row))[1:-1]
@@ -61,6 +62,8 @@ def main():
         if not is_AC:
             continue
         file_name = row[2]
+        if file_name in done:
+            continue
         if file_name not in links:
             print(f"Problem {file_name} is not found")
             continue
@@ -73,6 +76,7 @@ def main():
             # submit to codeforces
             contest, id = links[file_name].split('/')
             submiter.submit(file_name, code, lang, contest, id)
+            done.add(file_name)
         except Exception as e:
             print('Error', str(e))
             continue
